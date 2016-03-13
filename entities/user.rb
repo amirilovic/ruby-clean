@@ -8,7 +8,7 @@ module App::Entities
     attr_accessor :name
     attr_accessor :email
 
-    validates :email, presence: true, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i}
+    validates :email, presence: true, email: true
     validates :name, presence: true
     validates :password, length: { minimum: 8 }
 

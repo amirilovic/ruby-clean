@@ -1,7 +1,8 @@
 # A sample Gemfile
-source "https://rubygems.org"
+source 'https://rubygems.org'
 
 # gem "rails"
-gem "activemodel"
-gem "awesome_print"
+gem 'activemodel'
+gem 'awesome_print'
 gem 'bcrypt'
+gem 'rspec'
