@@ -56,5 +56,9 @@ module App::Repositories
 
       @users.delete_at(index)
     end
+
+    def count
+      @users.count
+    end
   end
 end
