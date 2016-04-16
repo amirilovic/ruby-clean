@@ -1,5 +1,5 @@
 module App::Actions
-  class CreateUserAction < BaseAction
+  class UserRegisterAction < BaseAction
 
     def initialize(user_repository)
       @user_repository = user_repository
@@ -9,11 +9,12 @@ module App::Actions
       response = ActionResponse.new
 
       user = App::Entities::User.new(params)
+      user.status = 'ACTIVE'
 
       if !user.password_confirmation.nil?
         if user.valid?
           same_user = @user_repository.find_by_email(user.email)
-          if !same_user
+          if same_user.nil?
             @user_repository.save(user)
             response.success = true
             response.data = user

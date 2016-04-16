@@ -1,5 +1,5 @@
 module App::Actions
-  class UpdateUserAction < BaseAction
+  class UserUpdateAction < BaseAction
 
     def initialize(user_repository)
       @user_repository = user_repository

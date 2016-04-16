@@ -2,6 +2,9 @@
 
 Photo application example.
 
+- User can register
+    - User's password needs to be confirmed
+    - User's email needs to be confirmed
 - User can login
 - User can upload photos
 - User can browse all photos

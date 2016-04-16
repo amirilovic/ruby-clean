@@ -7,10 +7,13 @@ module App::Entities
     attr_accessor :password_digest
     attr_accessor :name
     attr_accessor :email
+    attr_accessor :email_confirmed
+    attr_accessor :status
 
     validates :email, presence: true, email: true
     validates :name, presence: true
-    validates :password, length: { minimum: 8 }
+    validates :password, length: {minimum: 8}
+    validates :status, presence: true, inclusion: {in: %w(ACTIVE DELETED ARCHIVED)}
 
   end
 end

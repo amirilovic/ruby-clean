@@ -1,11 +1,12 @@
 require_relative '../module'
 
 describe App::Entities::User do
-  subject { App::Entities::User.new(:email => email, :name => name, :password => password) }
+  subject { App::Entities::User.new(:email => email, :name => name, :password => password, :status => status) }
 
   let(:email) { 'pera@pera.com' }
   let(:name) { 'Pera Peric' }
   let(:password) { '12345678' }
+  let(:status) { 'ACTIVE' }
 
   describe '#valid?' do
 
@@ -28,6 +29,18 @@ describe App::Entities::User do
     describe '#name' do
       it 'should be present' do
         subject.name = nil
+        expect(subject.valid?).to be false
+      end
+    end
+
+    describe '#status' do
+      it 'should be present' do
+        subject.status = nil
+        expect(subject.valid?).to be false
+      end
+
+      it 'should be ACTIVE, DELETED or ARCHIVED' do
+        subject.status = 'test'
         expect(subject.valid?).to be false
       end
     end

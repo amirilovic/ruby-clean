@@ -1,5 +1,5 @@
 module App::Actions
-  class DeleteUserAction < BaseAction
+  class UserDeleteAction < BaseAction
 
     def initialize(user_repository)
       @user_repository = user_repository

@@ -12,6 +12,10 @@ module App::Repositories
       @users.find {|u| u.email == email}
     end
 
+    def find_by_email_and_password(email, password)
+      @users.find {|u| u.email == email && u.password == password}
+    end
+
     def save(user)
       raise ArgumentError.new('User is not defined.') if user.nil?
 

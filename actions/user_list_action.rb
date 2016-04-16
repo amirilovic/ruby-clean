@@ -1,5 +1,5 @@
 module App::Actions
-  class ListUsersAction < BaseAction
+  class UserListAction < BaseAction
     def initialize(user_repository)
       @user_repository = user_repository
     end
