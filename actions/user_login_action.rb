@@ -16,8 +16,12 @@ module App::Actions
 
       user = @user_repository.find_by_email(email)
       if user && user.authenticate(password)
-        response.success = true
-        response.data = user
+        if user.email_confirmed
+          response.success = true
+          response.data = user
+        else
+          response.errors[:email] << 'Email not confirmed.'
+        end
       else
         response.errors[:email] << 'Email or password invalid.'
       end
