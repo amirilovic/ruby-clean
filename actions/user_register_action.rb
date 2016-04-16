@@ -8,13 +8,17 @@ module App::Actions
     def call(params)
       response = ActionResponse.new
 
-      user = App::Entities::User.new(params)
-      user.status = 'ACTIVE'
+      user = App::Entities::User.new(:name => params[:name],
+                                     :email => params[:email],
+                                     :password_confirmation => params[:password_confirmation],
+                                     :password => params[:password],
+                                     :status => 'ACTIVE')
 
       if !user.password_confirmation.nil?
         if user.valid?
           same_user = @user_repository.find_by_email(user.email)
           if same_user.nil?
+            user.email_confirmation_token = self.generate_token
             @user_repository.save(user)
             response.success = true
             response.data = user
@@ -29,6 +33,10 @@ module App::Actions
       end
 
       response
+    end
+
+    def generate_token
+      SecureRandom.hex(10)
     end
   end
 end

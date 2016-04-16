@@ -1,12 +1,12 @@
 require_relative '../../repositories/module'
 require_relative '../module'
 
-describe App::Actions::UserRegisterAction do
+describe App::Actions::UserLoginAction do
   subject { described_class.new(repo) }
 
   let(:repo) { App::Repositories::UserRepository.new }
 
-  let(:params) { {:email => email, :name => name, :password => password, :password_confirmation => password_confirmation} }
+  let(:params) { {:email => email, :password => password} }
 
   let(:user) { App::Entities::User.new(:email => email, :name => name, :password => password, :password_confirmation => password_confirmation, :status => status, :email_confirmed => email_confirmed) }
 
@@ -17,40 +17,43 @@ describe App::Actions::UserRegisterAction do
   let(:password_confirmation) { password }
   let(:status) { 'ACTIVE' }
 
+  before(:each) do
+    repo.save(user)
+  end
 
   describe '#call' do
-    it 'should create new user' do
+    it 'should login user' do
       response = subject.call(params)
 
       expect(response.success).to be true
       expect(response.data).to be_a App::Entities::User
       expect(response.data.id).not_to be_nil
       expect(response.errors).to be_empty
-      expect(response.data.email_confirmation_token).not_to be_empty
+
     end
 
-    it 'should validate password confirmation' do
-      params[:password_confirmation] = 'tesgdf'
-      response = subject.call(params)
+    it 'should validate required params' do
+      expect { subject.call({}) }.to raise_error(ArgumentError)
+      expect { subject.call({:email => 'test@test.com'}) }.to raise_error(ArgumentError)
+      expect { subject.call({:password => '123456'}) }.to raise_error(ArgumentError)
+    end
 
+    it 'should validate if user with email exists' do
+      response = subject.call({:email => 'test', :password => password})
       expect(response.success).to be false
-      expect(response.errors[:password_confirmation]).not_to be_empty
+      expect(response.errors[:email]).not_to be_empty
     end
 
-    it 'should validate if user is valid' do
-      params[:name] = nil
-
-      response = subject.call(params)
-
+    it 'should validate if password is correct' do
+      response = subject.call({:email => email, :password => 'dfghgfjghjgh'})
       expect(response.success).to be false
-      expect(response.errors[:name]).not_to be_empty
+      expect(response.errors[:email]).not_to be_empty
     end
 
-    it 'should validate if there is user with same email address' do
+    it 'should validate if email is confirmed' do
+      user.email_confirmed = false
       repo.save(user)
-
       response = subject.call(params)
-
       expect(response.success).to be false
       expect(response.errors[:email]).not_to be_empty
     end

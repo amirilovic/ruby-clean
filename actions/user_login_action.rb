@@ -20,7 +20,7 @@ module App::Actions
           response.success = true
           response.data = user
         else
-          response.errors[:email] << 'Email not confirmed.'
+          response.errors[:email] << 'not confirmed.'
         end
       else
         response.errors[:email] << 'Email or password invalid.'
