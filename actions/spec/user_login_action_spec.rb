@@ -34,8 +34,8 @@ describe App::Actions::UserLoginAction do
 
     it 'should validate required params' do
       expect { subject.call({}) }.to raise_error(ArgumentError)
-      expect { subject.call({:email => 'test@test.com'}) }.to raise_error(ArgumentError)
-      expect { subject.call({:password => '123456'}) }.to raise_error(ArgumentError)
+      expect { subject.call({:email => email}) }.to raise_error(ArgumentError)
+      expect { subject.call({:password => password}) }.to raise_error(ArgumentError)
     end
 
     it 'should validate if user with email exists' do

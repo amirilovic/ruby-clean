@@ -1,11 +1,28 @@
 require_relative '../module'
 
 describe App::Entities::Photo do
-  subject { App::Entities::Photo.new({:url => url, :user_id => user_id, :size => size}) }
+  subject { App::Entities::Photo.new({:original_file_name => original_file_name,
+                                      :file_name => file_name,
+                                      :width => width,
+                                      :height => height,
+                                      :format => format,
+                                      :mime_type => mime_type,
+                                      :user_id => user_id,
+                                      :status => status,
+                                      :file_size => file_size,
+                                      :quality => quality
+                                     }) }
 
-  let(:url) { 'https://test.com/photo.jpg' }
+  let(:original_file_name) { 'original_test.jpg' }
+  let(:file_name) { 'test.jpg' }
+  let(:width) { 200 }
+  let(:height) { 200 }
+  let(:format) { 'JPEG' }
+  let(:mime_type) { 'image/jpeg' }
   let(:user_id) { 1 }
-  let(:size) { 12345678 }
+  let(:status) { 'ACTIVE' }
+  let(:file_size) { 12345678 }
+  let(:quality) { 90 }
 
   describe '#valid?' do
 
@@ -13,33 +30,51 @@ describe App::Entities::Photo do
       expect(subject.valid?).to be true
     end
 
-    describe '#url' do
+    describe '#original_file_name' do
       it 'should be present' do
-        subject.url = nil
-        expect(subject.valid?).to be false
-      end
-
-      it 'should be well formatted' do
-        subject.url = 'bla bla bla'
-        expect(subject.valid?).to be false
-      end
-
-      it 'should support https' do
-        subject.url = 'https://test.com/1.jpg'
-        expect(subject.valid?).to be true
-      end
-    end
-
-    describe '#user_id' do
-      it 'should be present' do
-        subject.user_id = nil
+        subject.original_file_name = nil
         expect(subject.valid?).to be false
       end
     end
 
-    describe '#size' do
+    describe '#file_name' do
       it 'should be present' do
-        subject.size = nil
+        subject.file_name = nil
+        expect(subject.valid?).to be false
+      end
+    end
+
+    describe '#width' do
+      it 'should be present' do
+        subject.width = nil
+        expect(subject.valid?).to be false
+      end
+    end
+
+    describe '#height' do
+      it 'should be present' do
+        subject.height = nil
+        expect(subject.valid?).to be false
+      end
+    end
+
+    describe '#format' do
+      it 'should be present' do
+        subject.format = nil
+        expect(subject.valid?).to be false
+      end
+    end
+
+    describe '#mime_type' do
+      it 'should be present' do
+        subject.mime_type = nil
+        expect(subject.valid?).to be false
+      end
+    end
+
+    describe '#file_size' do
+      it 'should be present' do
+        subject.file_size = nil
         expect(subject.valid?).to be false
       end
     end

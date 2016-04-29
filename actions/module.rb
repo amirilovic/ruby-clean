@@ -10,4 +10,5 @@ module App::Actions
   require_relative 'user_list_action'
   require_relative 'user_update_action'
   require_relative 'user_delete_action'
+  require_relative 'photo_upload_action'
 end

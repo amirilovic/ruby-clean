@@ -17,6 +17,7 @@ GEM
     i18n (0.7.0)
     json (1.8.3)
     minitest (5.8.4)
+    rmagick (2.15.4)
     rspec (3.4.0)
       rspec-core (~> 3.4.0)
       rspec-expectations (~> 3.4.0)
@@ -41,4 +42,5 @@ DEPENDENCIES
   activemodel
   awesome_print
   bcrypt
+  rmagick
   rspec
