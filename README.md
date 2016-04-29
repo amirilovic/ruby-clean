@@ -7,7 +7,7 @@ Photo application example.
     - [x] User's email needs to be confirmed
 - [x] User can login
 - [x] User can upload photos
-- [ ] User can browse all photos
+- [x] User can browse all photos
 - [ ] User can view a photo
 - [ ] User can view details of a photo
 - [ ] User can create albums
