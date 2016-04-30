@@ -5,7 +5,9 @@ module App::Repositories
     end
 
     def find(id)
-      @entities.find { |u| u.id == id }
+      e = @entities.find { |u| u.id == id }
+      raise ArgumentError.new("Entity with id #{id} does not exist.") if e.nil?
+      e
     end
 
     def save(entity)

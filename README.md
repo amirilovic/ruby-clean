@@ -14,3 +14,7 @@ Photo application example.
 - [ ] User can view all albums
 - [ ] User can add photos to albums
 - [ ] User can view all photos in an album
+
+Improvements
+- [ ] Handling record not found error
+- [ ] Authorization
