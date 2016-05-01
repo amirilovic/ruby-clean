@@ -78,5 +78,17 @@ describe App::Entities::Photo do
         expect(subject.valid?).to be false
       end
     end
+
+    describe '#status' do
+      it 'should be present' do
+        subject.status = nil
+        expect(subject.valid?).to be false
+      end
+
+      it 'should be ACTIVE, DELETED or ARCHIVED' do
+        subject.status = 'test'
+        expect(subject.valid?).to be false
+      end
+    end
   end
 end

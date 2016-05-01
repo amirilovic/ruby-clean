@@ -8,9 +8,9 @@ Photo application example.
 - [x] User can login
 - [x] User can upload photos
 - [x] User can browse all photos
-- [ ] User can view a photo
-- [ ] User can view details of a photo
-- [ ] User can create albums
+- [x] User can view a photo
+- [x] User can view details of a photo
+- [x] User can create albums
 - [ ] User can view all albums
 - [ ] User can add photos to albums
 - [ ] User can view all photos in an album
@@ -18,3 +18,4 @@ Photo application example.
 Improvements
 - [ ] Handling record not found error
 - [ ] Authorization
+- [ ] Check attribute uniqueness

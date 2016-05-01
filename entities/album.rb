@@ -5,8 +5,11 @@ module App::Entities
     attr_accessor :user
     attr_accessor :photo_ids
     attr_accessor :photos
+    attr_accessor :status
 
     validates :name, presence: true
     validates :user_id, presence: true
+    validates :status, presence: true, inclusion: {in: %w(ACTIVE DELETED ARCHIVED)}
+
   end
 end

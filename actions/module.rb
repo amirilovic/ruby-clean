@@ -13,4 +13,5 @@ module App::Actions
   require_relative 'photo_upload_action'
   require_relative 'user_photo_list_action'
   require_relative 'photo_view_action'
+  require_relative 'album_create_action'
 end
