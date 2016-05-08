@@ -1,7 +1,7 @@
 require_relative '../module'
 
 describe App::Entities::Album do
-  subject { App::Entities::Album.new({:name => name, :user_id => 1, :status => status}) }
+  subject { App::Entities::Album.new({:name => name, :user_id => user_id, :status => status}) }
 
   let(:name) { 'The Best Album in the World!' }
   let(:user_id) { 1 }

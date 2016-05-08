@@ -16,7 +16,7 @@ module App::Repositories
       raise ArgumentError.new('Entity is invalid.') unless entity.valid?
 
       if entity.id
-        index = @entities.find_index { |e| e.id == entity.id }
+        index = @entities.index { |e| e.id == entity.id }
         raise ArgumentError.new('Entity does not exist.') if index.nil?
         @entities[index] = entity
       else
@@ -79,7 +79,7 @@ module App::Repositories
     end
 
     def delete(id)
-      index = @entities.find_index { |e| e.id == id }
+      index = @entities.index { |e| e.id == id }
       raise ArgumentError.new('Entity does not exist.') if index.nil?
 
       @entities.delete_at(index)
