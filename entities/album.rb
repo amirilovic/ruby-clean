@@ -11,5 +11,10 @@ module App::Entities
     validates :user_id, presence: true
     validates :status, presence: true, inclusion: {in: %w(ACTIVE DELETED ARCHIVED)}
 
+    def initialize(args)
+      self.photo_ids = []
+      super(args)
+    end
+
   end
 end

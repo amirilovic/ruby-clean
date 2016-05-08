@@ -12,8 +12,8 @@ Photo application example.
 - [x] User can view details of a photo
 - [x] User can create albums
 - [x] User can view all albums
-- [ ] User can add photos to albums
-- [ ] User can view all photos in an album
+- [x] User can add photos to albums
+- [x] User can view all photos in an album
 
 Improvements
 - [ ] Handling record not found error

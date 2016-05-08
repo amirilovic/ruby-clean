@@ -3,13 +3,12 @@ require_relative '../module'
 describe App::Repositories::AlbumRepository do
   subject { described_class.new }
 
-  let(:album) { App::Entities::Album.new({:name => album_name, :user_id => user_id, :status => album_status, :photo_ids => album_photo_ids}) }
+  let(:album) { App::Entities::Album.new({:name => album_name, :user_id => user_id, :status => album_status}) }
 
   let(:user_id) { 1 }
   let(:photo_id) { 1 }
   let(:album_name) { 'The Best Album in the World!' }
   let(:album_status) { 'ACTIVE' }
-  let(:album_photo_ids) { [] }
 
   describe '#add_photo' do
     it 'should add photo to album' do

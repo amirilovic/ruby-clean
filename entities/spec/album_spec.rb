@@ -38,5 +38,17 @@ describe App::Entities::Album do
         expect(subject.valid?).to be false
       end
     end
+
+    describe '#photo_ids' do
+      it 'should be initialized' do
+        expect(subject.photo_ids).not_to be_nil
+      end
+
+      it 'should be initialized with params' do
+        photo_ids = [1,2]
+        album = App::Entities::Album.new({:photo_ids => photo_ids})
+        expect(album.photo_ids).to be photo_ids
+      end
+    end
   end
 end

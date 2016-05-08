@@ -51,6 +51,8 @@ module App::Repositories
             a = a.select { |e| e.send(key) < value }
           elsif condition == 'lte'
             a = a.select { |e| e.send(key) <= value }
+          elsif condition == 'in'
+            a = a.select { |e| value.include?(e.send(key)) }
           end
 
         end
