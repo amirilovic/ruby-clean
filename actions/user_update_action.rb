@@ -10,18 +10,14 @@ module App::Actions
 
       user = @user_repository.find(params[:id])
 
-      if !user.nil?
-        user.name = params[:name]
+      user.name = params[:name]
 
-        if user.valid?
-          @user_repository.save(user)
-          response.success = true
-          response.data = user
-        else
-          response.errors = user.errors.messages
-        end
+      if user.valid?
+        @user_repository.save(user)
+        response.success = true
+        response.data = user
       else
-        response.errors[:id] << 'not found'
+        response.errors = user.errors.messages
       end
 
       response

@@ -82,14 +82,9 @@ describe App::Actions::AlbumPhotoListAction do
       expect { subject.call({:sort_by => sort_by, :per_page => per_page, :page => page}) }.to raise_error(ArgumentError)
     end
 
-    it 'should validate if user exists' do
-      expect(album_repository).to receive(:find).with(album_id) { nil }
-
-      response = subject.call(params)
-
-      expect(response.success).to be false
-      expect(response.errors[:album_id]).not_to be_empty
-      expect(response.data).to be_nil
+    it 'should validate if album exists' do
+      expect(album_repository).to receive(:find).with(album_id).and_raise(App::Repositories::RecordNotFoundError)
+      expect { subject.call(params) }.to raise_error(App::Repositories::RecordNotFoundError)
     end
   end
 end

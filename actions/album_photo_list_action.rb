@@ -16,12 +16,9 @@ module App::Actions
       raise ArgumentError.new('album_id is undefined.') if album_id.blank?
 
       album = @album_repository.find(album_id)
-      if album
-        response.success = true
-        response.data = @photo_repository.all({:'id.in' => album.photo_ids}, sort_by, page, per_page)
-      else
-        response.errors[:album_id] << 'can\'t be found.'
-      end
+
+      response.success = true
+      response.data = @photo_repository.all({:'id.in' => album.photo_ids}, sort_by, page, per_page)
 
       response
     end

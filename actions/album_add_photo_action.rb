@@ -19,23 +19,15 @@ module App::Actions
       raise ArgumentError.new('album_id is undefined.') if album_id.blank?
 
       user = @user_repository.find(user_id)
-      if user
-        photo = @photo_repository.find(photo_id)
-        if photo
-          album = @album_repository.find(album_id)
-          if album
-            @album_repository.add_photo(album_id, photo_id)
-            response.success = true
-            response.data = album
-          else
-            response.errors[:album_id] << 'can\'t be found.'
-          end
-        else
-          response.errors[:photo_id] << 'can\'t be found.'
-        end
-      else
-        response.errors[:user_id] << 'can\'t be found.'
-      end
+
+      photo = @photo_repository.find(photo_id)
+
+      album = @album_repository.find(album_id)
+
+      @album_repository.add_photo(album.id, photo.id)
+      response.success = true
+      response.data = album
+
       response
     end
   end

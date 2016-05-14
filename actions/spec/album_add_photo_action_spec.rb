@@ -15,19 +15,20 @@ describe App::Actions::AlbumAddPhotoAction do
   let(:album_id) { 1 }
 
   let(:user) { App::Entities::User.new(:id => user_id, :email => user_email, :name => user_name, :password => user_password, :status => user_status) }
-  let(:album) { App::Entities::Album.new({:name => album_name, :user_id => user_id, :status => album_status}) }
+  let(:album) { App::Entities::Album.new({:id => album_id, :name => album_name, :user_id => user_id, :status => album_status}) }
 
-  let(:photo) { App::Entities::Photo.new({:original_file_name => original_file_name,
-                                      :file_name => file_name,
-                                      :width => width,
-                                      :height => height,
-                                      :format => format,
-                                      :mime_type => mime_type,
-                                      :user_id => user_id,
-                                      :status => status,
-                                      :file_size => file_size,
-                                      :quality => quality
-                                     }) }
+  let(:photo) { App::Entities::Photo.new({:id => photo_id,
+                                          :original_file_name => original_file_name,
+                                          :file_name => file_name,
+                                          :width => width,
+                                          :height => height,
+                                          :format => format,
+                                          :mime_type => mime_type,
+                                          :user_id => user_id,
+                                          :status => status,
+                                          :file_size => file_size,
+                                          :quality => quality
+                                         }) }
 
   let(:user_email) { 'pera@pera.com' }
   let(:user_name) { 'Pera Peric' }
@@ -71,36 +72,21 @@ describe App::Actions::AlbumAddPhotoAction do
     end
 
     it 'should validate if user exists' do
-      expect(user_repository).to receive(:find).with(user_id) { nil }
-
-      response = subject.call(params)
-
-      expect(response.success).to be false
-      expect(response.errors[:user_id]).not_to be_empty
-      expect(response.data).to be_nil
+      expect(user_repository).to receive(:find).with(user_id).and_raise(App::Repositories::RecordNotFoundError)
+      expect { subject.call(params) }.to raise_error(App::Repositories::RecordNotFoundError)
     end
 
     it 'should validate if photo exists' do
       expect(user_repository).to receive(:find).with(user_id) { user }
-      expect(photo_repository).to receive(:find).with(photo_id) { nil }
-
-      response = subject.call(params)
-
-      expect(response.success).to be false
-      expect(response.errors[:photo_id]).not_to be_empty
-      expect(response.data).to be_nil
+      expect(photo_repository).to receive(:find).with(photo_id).and_raise(App::Repositories::RecordNotFoundError)
+      expect { subject.call(params) }.to raise_error(App::Repositories::RecordNotFoundError)
     end
 
     it 'should validate if album exists' do
       expect(user_repository).to receive(:find).with(user_id) { user }
       expect(photo_repository).to receive(:find).with(photo_id) { photo }
-      expect(album_repository).to receive(:find).with(album_id) { nil }
-
-      response = subject.call(params)
-
-      expect(response.success).to be false
-      expect(response.errors[:album_id]).not_to be_empty
-      expect(response.data).to be_nil
+      expect(album_repository).to receive(:find).with(album_id).and_raise(App::Repositories::RecordNotFoundError)
+      expect { subject.call(params) }.to raise_error(App::Repositories::RecordNotFoundError)
     end
   end
 end

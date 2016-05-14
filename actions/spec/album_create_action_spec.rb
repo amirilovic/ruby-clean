@@ -41,13 +41,8 @@ describe App::Actions::AlbumCreateAction do
     end
 
     it 'should validate if user exists' do
-      expect(user_repository).to receive(:find).with(user_id) { nil }
-
-      response = subject.call(params)
-
-      expect(response.success).to be false
-      expect(response.errors[:user_id]).not_to be_empty
-      expect(response.data).to be_nil
+      expect(user_repository).to receive(:find).with(user_id).and_raise(App::Repositories::RecordNotFoundError)
+      expect { subject.call(params) }.to raise_error(App::Repositories::RecordNotFoundError)
     end
   end
 end

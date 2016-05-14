@@ -5,19 +5,19 @@ module App::Repositories
     end
 
     def find(id)
-      e = @entities.find { |u| u.id == id }
-      raise ArgumentError.new("Entity with id #{id} does not exist.") if e.nil?
+      e = find_record(id)
+      raise RecordNotFoundError.new("Entity with id #{id} does not exist.") if e.nil?
       e
     end
 
     def save(entity)
-      raise ArgumentError.new('Entity is not defined.') if entity.nil?
+      raise RecordUndefinedError.new('Entity is not defined.') if entity.nil?
 
-      raise ArgumentError.new('Entity is invalid.') unless entity.valid?
+      raise RecordInvalidError.new('Entity is invalid.') unless entity.valid?
 
       if entity.id
-        index = @entities.index { |e| e.id == entity.id }
-        raise ArgumentError.new('Entity does not exist.') if index.nil?
+        index = find_index(entity.id)
+        raise RecordNotFoundError.new("Entity with id #{entity.id} does not exist.") if index.nil?
         @entities[index] = entity
       else
         id = SecureRandom.uuid
@@ -81,14 +81,25 @@ module App::Repositories
     end
 
     def delete(id)
-      index = @entities.index { |e| e.id == id }
-      raise ArgumentError.new('Entity does not exist.') if index.nil?
+      index = find_index(id)
+
+      raise RecordNotFoundError.new("Entity with id #{id} does not exist.") if index.nil?
 
       @entities.delete_at(index)
     end
 
     def count
       @entities.count
+    end
+
+    private
+
+    def find_record(id)
+      @entities.find { |e| e.id == id }
+    end
+
+    def find_index(id)
+      @entities.index { |e| e.id == id }
     end
   end
 end

@@ -6,5 +6,6 @@ module App
     require_relative 'photo_repository'
     require_relative 'file_repository'
     require_relative 'album_repository'
+    require_relative 'errors'
   end
 end

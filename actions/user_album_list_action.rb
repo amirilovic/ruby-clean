@@ -16,13 +16,9 @@ module App::Actions
       raise ArgumentError.new('user_id is undefined.') if user_id.blank?
 
       user = @user_repository.find(user_id)
-      if user
-        response.success = true
-        response.data = @album_repository.all({:user_id => user_id}, sort_by, page, per_page)
-      else
-        response.errors[:user_id] << 'can\'t be found.'
-      end
 
+      response.success = true
+      response.data = @album_repository.all({:user_id => user.id}, sort_by, page, per_page)
       response
     end
   end

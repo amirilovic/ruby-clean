@@ -16,19 +16,17 @@ module App::Actions
       raise ArgumentError.new('name is undefined.') if name.blank?
 
       user = @user_repository.find(user_id)
-      if user
-        album = App::Entities::Album.new(
-            :user_id => user_id,
-            :status => 'ACTIVE',
-            :name => name
-        )
 
-        @album_repository.save(album)
-        response.success = true
-        response.data = album
-      else
-        response.errors[:user_id] << 'can\'t be found.'
-      end
+      album = App::Entities::Album.new(
+          :user_id => user.id,
+          :status => 'ACTIVE',
+          :name => name
+      )
+
+      @album_repository.save(album)
+      response.success = true
+      response.data = album
+
       response
     end
   end

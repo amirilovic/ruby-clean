@@ -35,7 +35,7 @@ describe App::Repositories::PhotoRepository do
 
     it 'should not save invalid photo' do
       photo.file_size = nil
-      expect { subject.save(photo) }.to raise_error(ArgumentError)
+      expect { subject.save(photo) }.to raise_error(App::Repositories::RecordInvalidError)
     end
   end
 end

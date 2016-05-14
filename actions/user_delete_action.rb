@@ -10,13 +10,9 @@ module App::Actions
 
       user = @user_repository.find(params[:id])
 
-      if !user.nil?
-        user = @user_repository.delete(user.id)
-        response.success = true
-        response.data = user
-      else
-        response.errors[:id] << 'not found'
-      end
+      user = @user_repository.delete(user.id)
+      response.success = true
+      response.data = user
 
       response
     end
